@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | あなたのお名前</title>
+    <style>
+        /* 基本スタイルリセット */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #333; line-height: 1.6; background-color: #f9f9f9; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ヘッダー・ナビゲーション */
+        header { background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
+        .logo { font-size: 1.2rem; font-weight: bold; }
+        nav ul { display: flex; list-style: none; gap: 20px; }
+        
+        /* ヒーローセクション */
+        .hero { max-width: 1000px; margin: 40px auto; padding: 40px 20px; text-align: center; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .hero p { font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto 30px; }
+        .store-btn { display: inline-block; background: #e60012; color: #fff; padding: 12px 30px; border-radius: 25px; font-weight: bold; font-size: 1.1rem; transition: background 0.2s; }
+        .store-btn:hover { background: #b8000e; text-decoration: none; }
+
+        /* コンテンツ共通 */
+        section { max-width: 1000px; margin: 60px auto; padding: 0 20px; scroll-margin-top: 80px; }
+        section h2 { font-size: 1.8rem; margin-bottom: 30px; border-left: 5px solid #333; padding-left: 15px; }
+
+        /* 作品紹介（グリッドレイアウト） */
+        .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .work-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.2s; }
+        .work-card:hover { transform: translateY(-5px); }
+        .work-img { width: 100%; height: 200px; background: #ddd; object-fit: cover; display: block; }
+        .work-info { padding: 20px; }
+        .work-info h3 { margin-bottom: 10px; font-size: 1.2rem; }
+        .work-info p { color: #666; font-size: 0.9rem; }
+
+        /* コンタクト（お問い合わせ） */
+        .contact-container { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; }
+        .contact-links { display: flex; justify-content: center; gap: 30px; margin-top: 20px; font-size: 1.1rem; }
+
+        /* フッター */
+        footer { text-align: center; padding: 40px 20px; font-size: 0.8rem; color: #999; border-top: 1px solid #eee; margin-top: 80px; }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">あなたの名前 / ブランド名</div>
+            <nav>
+                <ul>
+                    <li><a href="#works">Works</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="https://あなたのストアのURL" target="_blank" style="color: #e60012; font-weight: bold;">Store</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ヒーローエリア -->
+    <section class="hero">
+        <h1>Welcome to My Portfolio</h1>
+        <p>ここに簡単な自己紹介や、作っているもののジャンルなどを書きます。あなたの魅力が1行で伝わるキャッチコピーがおすすめです。</p>
+        <a href="https://あなたのストアのURL" target="_blank" class="store-btn">オンラインストアを見る</a>
+    </section>
+
+    <!-- 作品紹介セクション -->
+    <section id="works">
+        <h2>Works（作品紹介）</h2>
+        <div class="work-grid">
+            
+            <!-- 作品1 -->
+            <div class="work-card">
+                <!-- 画像がない場合は一旦ダミーが入ります。srcを自分の画像パス（例: images/work1.jpg）に書き換えてください -->
+                <img src="https://unsplash.com" alt="作品1" class="work-img">
+                <div class="work-info">
+                    <h3>作品タイトル1</h3>
+                    <p>作品の簡単な説明、こだわったポイント、使用したツール（Photoshop, CLIP STUDIOなど）をここに書きます。</p>
+                </div>
+            </div>
+
+            <!-- 作品2 -->
+            <div class="work-card">
+                <img src="https://unsplash.com" alt="作品2" class="work-img">
+                <div class="work-info">
+                    <h3>作品タイトル2</h3>
+                    <p>作品の簡単な説明、こだわったポイント、使用したツール（Photoshop, CLIP STUDIOなど）をここに書きます。</p>
+                </div>
+            </div>
+
+            <!-- 作品3 -->
+            <div class="work-card">
+                <img src="https://unsplash.com" alt="作品3" class="work-img">
+                <div class="work-info">
+                    <h3>作品タイトル3</h3>
+                    <p>作品の簡単な説明、こだわったポイント、使用したツール（Photoshop, CLIP STUDIOなど）をここに書きます。</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- コンタクトセクション -->
+    <section id="contact">
+        <h2>Contact（お問い合わせ）</h2>
+        <div class="contact-container">
+            <p>お仕事のご依頼や、作品に関するお問い合わせは以下よりご連絡ください。</p>
+            <div class="contact-links">
+                <a href="https://google.com..." target="_blank">📬 Googleフォーム</a>
+                <a href="https://x.com" target="_blank">📱 X (旧Twitter)</a>
+                <a href="mailto:your-email@example.com">✉️ メールを送る</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <p>&copy; 2026 あなたのお名前. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
+
