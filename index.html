@@ -71,36 +71,9 @@
     <!-- 作品紹介セクション -->
     <section id="works">
         <h2>Works（作品紹介）</h2>
-        <div class="work-grid">
-            
-            <!-- 作品1 -->
-            <div class="work-card">
-                <!-- 画像がない場合は一旦ダミーが入ります。srcを自分の画像パス（例: images/work1.jpg）に書き換えてください -->
-                <img src="https://unsplash.com" alt="作品1" class="work-img">
-                <div class="work-info">
-                    <h3>作品タイトル1</h3>
-                    <p>作品の簡単な説明、こだわったポイント、使用したツール（Photoshop, CLIP STUDIOなど）をここに書きます。</p>
-                </div>
-            </div>
-
-            <!-- 作品2 -->
-            <div class="work-card">
-                <img src="https://unsplash.com" alt="作品2" class="work-img">
-                <div class="work-info">
-                    <h3>作品タイトル2</h3>
-                    <p>作品の簡単な説明、こだわったポイント、使用したツール（Photoshop, CLIP STUDIOなど）をここに書きます。</p>
-                </div>
-            </div>
-
-            <!-- 作品3 -->
-            <div class="work-card">
-                <img src="https://unsplash.com" alt="作品3" class="work-img">
-                <div class="work-info">
-                    <h3>作品タイトル3</h3>
-                    <p>作品の簡単な説明、こだわったポイント、使用したツール（Photoshop, CLIP STUDIOなど）をここに書きます。</p>
-                </div>
-            </div>
-
+        <!-- id="works-container" を追加し、中身を空にしておきます -->
+        <div class="work-grid" id="works-container">
+            <!-- ここにJavaScriptで作品カードが自動挿入されます -->
         </div>
     </section>
 
@@ -120,6 +93,59 @@
         <p>&copy; 2026 ゆゆLABO. All rights reserved.</p>
     </footer>
 
+    <!-- 既存のフッター -->
+    <footer>
+        <p>&copy; 2026 ゆゆLABO. All rights reserved.</p>
+    </footer>
+
+    <!-- スクリプト -->
+    <script>
+        // microCMSの設定
+        const SERVICE_ID = 'YOUR_SERVICE_ID'; // 例: yuyulabo-portfolio
+        const API_KEY = 'YOUR_API_KEY'; // コピーしたAPIキー
+        const ENDPOINT = `https://${SERVICE_ID}.microcms.io/api/v1/works`;
+
+        // データを取得して描画する関数
+        async function fetchWorks() {
+            const container = document.getElementById('works-container');
+            
+            try {
+                // microCMSからデータを取得
+                const response = await fetch(ENDPOINT, {
+                    headers: { 'X-MICROCMS-API-KEY': API_KEY }
+                });
+                const data = await response.json();
+
+                // 取得した作品データ（data.contents）をループ処理
+                data.contents.forEach(work => {
+                    // 作品画像のURLを取得（画像がない場合のダミー画像も設定）
+                    const imageUrl = work.image ? work.image.url : 'https://unsplash.com/...';
+                    
+                    // カードのHTML要素を作成
+                    const card = document.createElement('div');
+                    card.className = 'work-card';
+                    
+                    // テンプレートリテラルで現在のデザインを完全再現
+                    card.innerHTML = `
+                        <img src="${imageUrl}" alt="${work.title}" class="work-img">
+                        <div class="work-info">
+                            <h3>${work.title}</h3>
+                            <p>${work.description}</p>
+                        </div>
+                    `;
+                    
+                    // コンテナに追加
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('データの取得に失敗しました:', error);
+                container.innerHTML = '<p>作品データの読み込みに失敗しました。</p>';
+            }
+        }
+
+        // ページ読み込み時に実行
+        fetchWorks();
+    </script>
 </body>
 </html>
 
