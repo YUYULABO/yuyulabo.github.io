@@ -24,12 +24,20 @@ for work in data.get('contents', []):
     title = work.get('title', 'No Title')
     description = work.get('description', '')
     
+    # ★追加: URLフィールドを取得（未入力の場合は空文字）
+    url = work.get('url', '')
+    
+    # ★追加: URLがある場合だけ、リンクのHTMLタグを生成
+    link_html = f'<a href="{url}" target="_blank" style="display: inline-block; margin-top: 15px; font-size: 0.9rem; font-weight: bold;">詳細を見る ＞</a>' if url else ''
+    
+    # HTML組み立て（{link_html} を追加）
     works_html += f"""
     <div class="work-card">
         <img src="{image_url}" alt="{title}" class="work-img">
         <div class="work-info">
             <h3>{title}</h3>
             <p>{description}</p>
+            {link_html}
         </div>
     </div>
     """
@@ -39,11 +47,9 @@ try:
     with open('index.html', 'r', encoding='utf-8') as f:
         html_content = f.read()
 
-    # WORKS_STARTとWORKS_ENDの間をごっそり入れ替える（目印は残す）
     pattern = r'<!-- WORKS_START -->.*?<!-- WORKS_END -->'
     replacement = f'<!-- WORKS_START -->\n{works_html}\n<!-- WORKS_END -->'
     
-    # re.DOTALL で改行を跨いでマッチさせる
     new_html = re.sub(pattern, replacement, html_content, flags=re.DOTALL)
 
     with open('index.html', 'w', encoding='utf-8') as f:
