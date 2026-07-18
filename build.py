@@ -1,9 +1,9 @@
 import urllib.request
 import json
 import os
+import re
 
 # 1. 環境変数からAPI設定を取得
-# GitHub Actions側で安全に設定したシークレット値を読み込みます
 SERVICE_ID = os.environ.get('MICROCMS_SERVICE_ID')
 API_KEY = os.environ.get('MICROCMS_API_KEY')
 ENDPOINT = f"https://{SERVICE_ID}.microcms.io/api/v1/works"
@@ -24,23 +24,27 @@ for work in data.get('contents', []):
     title = work.get('title', 'No Title')
     description = work.get('description', '')
     
-    # カードのHTMLを組み立て
     works_html += f"""
-    
-        
-        
-            {title}
-            {description}
-        
-    
+    <div class="work-card">
+        <img src="{image_url}" alt="{title}" class="work-img">
+        <div class="work-info">
+            <h3>{title}</h3>
+            <p>{description}</p>
+        </div>
+    </div>
     """
 
-# 4. index.html を読み込み、目印の部分を置換して保存
+# 4. index.html を読み込み、正規表現で部分置換して保存
 try:
     with open('index.html', 'r', encoding='utf-8') as f:
         html_content = f.read()
 
-    new_html = html_content.replace('', works_html)
+    # WORKS_STARTとWORKS_ENDの間をごっそり入れ替える（目印は残す）
+    pattern = r'<!-- WORKS_START -->.*?<!-- WORKS_END -->'
+    replacement = f'<!-- WORKS_START -->\n{works_html}\n<!-- WORKS_END -->'
+    
+    # re.DOTALL で改行を跨いでマッチさせる
+    new_html = re.sub(pattern, replacement, html_content, flags=re.DOTALL)
 
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(new_html)
